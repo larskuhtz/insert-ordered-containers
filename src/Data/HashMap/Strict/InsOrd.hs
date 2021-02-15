@@ -291,12 +291,14 @@ instance (Eq k, Hashable k) => Optics.At (InsOrdHashMap k a) where
     at k = Optics.lensVL $ \f m -> Lens.at k f m
     {-# INLINE at #-}
 
+#if ! MIN_VERSION_optics_core(0,4,0)
 instance (Eq k, Hashable k) => Optics.FunctorWithIndex k (InsOrdHashMap k) where
     imap = mapWithKey
 instance (Eq k, Hashable k) => Optics.FoldableWithIndex k (InsOrdHashMap k) where
     ifoldMap = foldMapWithKey
 instance (Eq k, Hashable k) => Optics.TraversableWithIndex k (InsOrdHashMap k) where
     itraverse = traverseWithKey
+#endif
 
 -------------------------------------------------------------------------------
 -- Construction
